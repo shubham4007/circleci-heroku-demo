@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  circleciherokudemo:
+    build: .
+    container_name: circleci-heroku-demo
+    ports:
+      - "8080:8080"
