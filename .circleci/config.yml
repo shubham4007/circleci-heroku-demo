@@ -13,9 +13,7 @@ jobs:
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
-            - maven-repo-v1-{{ .Branch }}-{{ checksum "pom.xml" }}
-            - maven-repo-v1-{{ .Branch }}-
-            - maven-repo-v1-
+            - myapp-{{ .Branch }}-{{ checksum "pom.xml" }}
       - run:
           name: Build and Deploy to Heroku
           command: |
@@ -27,4 +25,4 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: maven-repo-v1-{{ .Branch }}-{{ checksum "pom.xml" }}
+          key: myapp-{{ .Branch }}-{{ checksum "pom.xml" }}
