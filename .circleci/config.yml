@@ -12,17 +12,17 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            # when lock file changes, use increasingly general patterns to restore cache
+        # when lock file changes, use increasingly general patterns to restore cache
             - cachingimplementation-{{ .Branch }}-{{ checksum "pom.xml" }}
-            - run:
-                name: Build and Deploy to Heroku
-                command: |
-                  set -x
-                  sudo curl https://cli-assets.heroku.com/install.sh | sh
-                  HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-                  HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a circleci-heroku-demo web
-                  HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a circleci-heroku-demo web
-        - save_cache:
+      - run:
+          name: Build and Deploy to Heroku
+          command: |
+            set -x
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a circleci-heroku-demo web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a circleci-heroku-demo web
+      - save_cache:
           paths:
             - ~/.m2
           key: cachingimplementation-{{ .Branch }}-{{ checksum "pom.xml" }}
