@@ -13,7 +13,7 @@ jobs:
       - restore_cache:
           keys:
         # when lock file changes, use increasingly general patterns to restore cache
-            - cachingimplementation-{{ .Branch }}-{{ checksum "pom.xml" }}
+            - caching-{{ .Branch }}-{{ checksum "pom.xml" }}
       - run:
           name: Build and Deploy to Heroku
           command: |
@@ -25,4 +25,4 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: cachingimplementation-{{ .Branch }}-{{ checksum "pom.xml" }}
+          key: caching-{{ .Branch }}-{{ checksum "pom.xml" }}
